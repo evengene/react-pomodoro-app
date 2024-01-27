@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {TimerContext} from '../../context/TimerContext';
 import {Box, Tab, Tabs} from '@mui/material';
+import {ThemeContext} from '../../context/ThemeContext';
 
 const TABS = [
   {
@@ -19,6 +20,8 @@ const TABS = [
 
 export const ModeSelector = () => {
   const {setMode, setTimeLeft, setTotalTime} = useContext(TimerContext);
+  const { themeColor, themeFont } = useContext(ThemeContext);
+
   const handleModeChange = (newMode) => {
     setMode(newMode);
     const newTime = newMode === 'pomodoro' ? 25 * 60 : newMode === 'shortBreak' ? 5 * 60 : 10 * 60;
@@ -57,17 +60,22 @@ export const ModeSelector = () => {
               label={tab.label}
               sx={{
                 fontWeight: 700,
-                width: {xs: 106, sm: 120},
+                width: {xs: 106, sm: 'auto'},
+                minWidth: {xs: 106, sm: 120},
                 height: '48px',
                 flexShrink: 0,
                 borderRadius: '26.5px',
                 background: 'transparent',
-                color: '#FFF',
+                color: '#D7E0FF',
                 textTransform: 'lowercase',
-                fontSize: {xs: 12, sm: 14},
+                fontSize: {xs: 12, sm: 13},
+                opacity: 0.4,
+                fontFamily: themeFont,
                 '&.Mui-selected': {
-                  background: '#F87070',
+                  background: themeColor,
                   color: '#1E213F',
+                  fontFamily: themeFont,
+                  opacity: 1,
                 },
               }}
             />

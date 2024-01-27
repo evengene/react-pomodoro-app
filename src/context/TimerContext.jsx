@@ -7,9 +7,10 @@ export const TimerProvider = ({children}) => {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [totalTime, setTotalTime] = useState(25 * 60); // Add this line
   const [isRunning, setIsRunning] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <TimerContext.Provider value={{ mode, setMode, timeLeft, setTimeLeft, totalTime, setTotalTime, isRunning, setIsRunning }}>
+    <TimerContext.Provider value={{ mode, setMode, timeLeft, setTimeLeft, totalTime, setTotalTime, isRunning, setIsRunning, settingsOpen, setSettingsOpen }}>
       {children}
     </TimerContext.Provider>
   );

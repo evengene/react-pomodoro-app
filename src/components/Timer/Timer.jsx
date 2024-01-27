@@ -1,23 +1,25 @@
 import {useContext, useEffect, useMemo} from 'react';
 import {TimerContext} from '../../context/TimerContext';
 import {Box, CircularProgress, styled, Typography, useMediaQuery, useTheme} from '@mui/material';
-
-const CountdownCircle = styled(CircularProgress)(({theme}) => ({
-  color: '#F87070',
-  position: 'absolute',
-  zIndex: 1,
-}));
+import {ThemeContext} from '../../context/ThemeContext';
 
 export const Timer = () => {
 
   const {timeLeft, setTimeLeft, isRunning, setIsRunning, totalTime} = useContext(TimerContext);
+  const { themeColor, themeFont } = useContext(ThemeContext);
+
+  const CountdownCircle = styled(CircularProgress)(() => ({
+    color: themeColor,
+    position: 'absolute',
+    zIndex: 1,
+  }));
+
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
   // Update the timer every second
   useEffect(() => {
-    debugger;
     let timer;
     if (isRunning && timeLeft > 0) { // is it's running and time is positive
       timer = setInterval(() => {
@@ -39,7 +41,6 @@ export const Timer = () => {
   }
 
   const progress = (timeLeft / totalTime) * 100;
-  console.log(progress);
 
   const theme = useTheme();
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -86,7 +87,7 @@ export const Timer = () => {
             position: 'absolute',
             color: '#D7E0FF',
             textAlign: 'center',
-            fontFamily: 'Kumbh Sans',
+            fontFamily: themeFont,
             fontSize: {xs: '80px', sm: '100px'},
             fontWeight: 700,
             letterSpacing: {xs: '-4px', sm: '-5px'},
@@ -102,7 +103,6 @@ export const Timer = () => {
           sx={{
             color: '#D7E0FF',
             cursor: 'pointer',
-            fontFamily: 'Kumbh Sans',
             fontSize: {xs: '14px', sm: '16px'},
             fontWeight: 700,
             letterSpacing: {xs: '13.125px', sm: '15px'},
@@ -111,6 +111,7 @@ export const Timer = () => {
             zIndex: 2,
             background: 'transparent',
             border: 'none',
+            fontFamily: themeFont,
           }}
         >
           {isRunning ? 'Pause' : 'Start'}

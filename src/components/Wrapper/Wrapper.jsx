@@ -1,8 +1,16 @@
 import {Box, IconButton, Typography} from '@mui/material';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Settings} from '@mui/icons-material';
+import {TimerContext} from '../../context/TimerContext';
 
 export const Wrapper = ({children}) => {
+
+  const {setSettingsOpen} = useContext(TimerContext);
+  
+  const onSettingsToggle = () => {
+    setSettingsOpen((prev) => !prev);
+  }
+  
   return (
     <Box
       sx={{
@@ -28,7 +36,9 @@ export const Wrapper = ({children}) => {
         pomodoro
       </Typography>
       {children}
-      <IconButton>
+      <IconButton
+      onClick={onSettingsToggle}
+      >
         <Settings sx={{
           color: '#D7E0FF',
           opacity: 0.5,
