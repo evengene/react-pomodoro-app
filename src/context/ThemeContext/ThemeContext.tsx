@@ -6,7 +6,7 @@ export const ThemeContext = createContext<any>(
   {},
 );
 
-export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
+export const CustomThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const [themeColor, setThemeColor] = useState(Colors.Carrot);
   const [themeFont, setThemeFont] = useState(Fonts.KumbhSans);
 
