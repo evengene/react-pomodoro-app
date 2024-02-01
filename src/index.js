@@ -1,22 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 import './index.css';
 import App from './App';
 import { TimerProvider } from './context/TimerContext';
 import { CustomThemeProvider } from './context/ThemeContext';
-import { theme} from './theme';
+import { theme } from './theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
-    <CustomThemeProvider>
-      <TimerProvider>
-        <App/>
-      </TimerProvider>
-    </CustomThemeProvider>
+      <CustomThemeProvider>
+        <TimerProvider>
+          <App/>
+        </TimerProvider>
+      </CustomThemeProvider>
     </MuiThemeProvider>
+    <Analytics/>
   </React.StrictMode>
 );
