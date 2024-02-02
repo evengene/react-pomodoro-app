@@ -1,50 +1,35 @@
-import React, {useContext} from 'react';
-import {TimerContext} from '../../context/TimerContext';
+import React, { useContext } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
-import {ThemeContext} from '../../context/ThemeContext';
+import type { TabsProps } from '@mui/material';
+
+import {
+  ModeLabels,
+  ThemeContext,
+  TimerContext,
+} from '../../context';
+
 import { useStyles } from './ModeSelector.styles';
 
-import type { TabsProps } from '@mui/material';
-import { ModeLabels } from '../../context/TimerContext';
 
-const TABS = [
-  {
-    label: ModeLabels.Pomodoro,
-    value: ModeLabels.Pomodoro,
-  },
-  {
-    label: ModeLabels.ShortBreak,
-    value: ModeLabels.ShortBreak,
-  },
-  {
-    label: ModeLabels.LongBreak,
-    value: ModeLabels.LongBreak,
-  },
-];
+const TABS = [ ModeLabels.Pomodoro, ModeLabels.ShortBreak, ModeLabels.LongBreak ];
 
 export const ModeSelector = () => {
-  const { mode, setMode, setTimeLeft, setTotalTime} = useContext(TimerContext);
-  const {themeColor, themeFont} = useContext(ThemeContext);
-  const { classes }  = useStyles({ themeFont, themeColor});
+  const { mode, setMode, modeDurationInSeconds, setInitialTimerValue, setRemainingTimerValue } = useContext(TimerContext);
+  const { themeColor, themeFont } = useContext(ThemeContext);
+  const { classes } = useStyles({ themeFont, themeColor });
 
-  const onTabChangeHandler: TabsProps['onChange'] = (_, newValue) => {
-    debugger;
-    setMode(newValue);
-    const newTime = newValue === ModeLabels.Pomodoro
-      ? 25 * 60
-      : newValue === ModeLabels.ShortBreak
-        ? 5 * 60
-        : 10 * 60;
-    setTimeLeft(newTime);
-    setTotalTime(newTime);
+  const onTabChangeHandler: TabsProps['onChange'] = (_, selectedMode: ModeLabels) => {
+    setMode(selectedMode);
+    const newTime = modeDurationInSeconds[selectedMode]
+    setInitialTimerValue(newTime);
+    setRemainingTimerValue(newTime);
   }
-
 
   return (
     <>
       <Box className={classes.root}>
         <Tabs
-          TabIndicatorProps={{style: {display: 'none'}}}
+          TabIndicatorProps={{ style: { display: 'none' } }}
           aria-label="timer mode selector"
           onChange={onTabChangeHandler}
           value={mode}
@@ -52,9 +37,9 @@ export const ModeSelector = () => {
           {TABS.map((tab, index) => (
             <Tab
               key={index}
-              label={tab.label}
+              label={tab}
               className={classes.tab}
-              value={tab.value}
+              value={tab}
             />
           ))}
         </Tabs>

@@ -1,45 +1,44 @@
 import { TextField, Typography } from '@mui/material';
 import React from 'react';
-import { styled } from '@mui/system';
+
+import { useStyles } from './TimeSettings.styles';
+import type { TimeSettingsProps } from './TimeSettings.types';
 
 
-const StyledTextField = styled(TextField)({
-  input: {
-    padding: '12px 16px',
-    '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
-      margin: 0,
-      '-moz-appearance': 'textfield',
-    },
-    '&[type=number]': {
-      '-moz-appearance': 'textfield',
-    },
-  },
-});
-
-export const TimeSettings = (props: any) => {
+export const TimeSettings = (props: TimeSettingsProps) => {
   const {
     title,
     defaultValue,
+    value,
+    onChange,
   } = props;
+  const { classes } = useStyles();
 
   return (
-    <div>
-      <Typography variant="subtitle1">{title}</Typography>
-      <StyledTextField
-        type="number"
+    <div className={classes.root}>
+      <Typography component="h5" className={classes.label}>
+        {title}
+      </Typography>
+      <TextField
+        className={classes.textField}
         defaultValue={defaultValue}
-        variant="filled"
+        fullWidth
         InputProps={{
-          disableUnderline: true,
-          componentsProps: {
-            root: {
-              style: {
-                borderRadius: '10px',
-                backgroundColor: '#EFF1FA'
-              }
-            },
+          classes: {
+            root: classes.inputRoot,
+            input: classes.input,
           },
+          disableUnderline: true,
         }}
+        inputProps={{
+          min: 1,
+          max: 60,
+          className: classes.inputInner,
+        }}
+        onChange={onChange}
+        type="number"
+        value={value}
+        variant="filled"
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { Settings } from '@mui/icons-material';
 import type { IconButtonProps } from '@mui/material';
 import type { PropsWithChildren } from 'react';
 
-import { TimerContext } from '../../context/TimerContext';
+import { TimerContext } from '../../context';
 import { useStyles } from './Wrapper.styles';
 
 export const Wrapper = ({ children }: PropsWithChildren<{}>) => {

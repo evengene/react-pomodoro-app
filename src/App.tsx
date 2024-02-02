@@ -1,4 +1,4 @@
-import { ModeSelector } from './components/ModeSelector/ModeSelector';
+import { ModeSelector } from './components/ModeSelector';
 import { Settings } from './components/Settings';
 import { Timer } from './components/Timer/Timer';
 import { Wrapper } from './components/Wrapper';

@@ -1,14 +1,18 @@
+import React, { useContext } from 'react';
 import { Check } from '@mui/icons-material';
-import { IconButton, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import {
+  IconButton,
+  ToggleButton,
+  ToggleButtonGroup,
+} from '@mui/material';
+import type { ToggleButtonProps } from '@mui/material';
 
-import { Colors } from '../../../context/ThemeContext';
+import { Colors, ThemeContext } from '../../../context';
 import { useStyles } from './ColorSettings.styles';
 
-export const ColorSettings = (props: any) => {
-  const {
-    themeColor,
-    switchColor,
-  } = props;
+export const ColorSettings = () => {
+
+  const { themeColor, switchColor } = useContext(ThemeContext);
 
   const { classes } = useStyles();
 
@@ -20,21 +24,20 @@ export const ColorSettings = (props: any) => {
 
   const checkIcon =
     <IconButton className={classes.checkIcon}>
-      <Check  />
+      <Check />
     </IconButton>
 
 
-  const handleFontChange = (event: any) => {
-    switchColor(event.target.value);
+  const handleFontChange: ToggleButtonProps['onChange'] = ( _, value ) => {
+    switchColor(value);
   };
 
   return (
     <ToggleButtonGroup
-      value={themeColor}
+      aria-label="theme colors"
       exclusive
-      color="secondary"
       onChange={handleFontChange}
-      aria-label="font"
+      value={themeColor}
       classes={{
         root: classes.buttonGroup,
         firstButton: classes.firstButton,
@@ -42,21 +45,18 @@ export const ColorSettings = (props: any) => {
         lastButton: classes.lastButton,
       }}
     >
-      {THEME_COLORS.map((color: any, index: number) => {
-          return (
-            <ToggleButton
-              key={index}
-              value={color}
-              aria-label={color}
-              classes={{
-                root: classes.root,
-              }}
-            >
-              {themeColor === color ? checkIcon : null}
-            </ToggleButton>
-          )
-        }
-      )}
+      {THEME_COLORS.map(( color, index ) => {
+        return (
+          <ToggleButton
+            key={index}
+            value={color}
+            aria-label={color}
+            classes={{ root: classes.root}}
+          >
+            {themeColor === color ? checkIcon : null}
+          </ToggleButton>
+        )
+      })}
     </ToggleButtonGroup>
   );
 }

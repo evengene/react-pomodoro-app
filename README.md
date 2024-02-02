@@ -1,7 +1,21 @@
-# React App
+# A Pomodoro-like Timer App 
+![Screenshot](./app-mockup.jpg)
+An app that allows you to set a timer for any duration. Built with React and TypeScript.
+
+## Tech Stack
+- React
+- TypeScript
+- Material-UI
+
+## Features
+
+ - Set a timer for any duration
+ - Intuitive interface
+ - Customizable theme
+ - Responsive design
 
 
-## Available Scripts
+## Project Setup
 
 In the project directory, you can run:
 

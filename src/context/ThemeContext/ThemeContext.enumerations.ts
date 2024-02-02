@@ -1,7 +1,7 @@
 export enum Colors {
-  Carrot = '#F87070',
-  Turquoise = '#70F3F8',
-  NeonPink = '#D881F8',
+  Carrot = 'rgba(248,112,112)',
+  Turquoise = 'rgb(112,243,248)',
+  NeonPink = 'rgb(216,129,248)',
 }
 
 export enum Fonts {

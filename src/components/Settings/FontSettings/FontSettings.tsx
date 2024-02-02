@@ -1,15 +1,17 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, } from '@mui/material';
+import React, { useContext } from 'react';
+import type { ToggleButtonProps } from '@mui/material';
+
 import { useStyles } from './FontSettings.styles';
-import { Fonts } from '../../../context/ThemeContext';
+import { Fonts, ThemeContext } from '../../../context';
 
-export const FontSettings = (props: any) => {
-  const {
-    themeFont,
-    switchFont,
-    defaultLabel,
-  } = props;
+export const FontSettings = () => {
 
-  const { classes } = useStyles();
+  const { themeFont, switchFont } = useContext(ThemeContext);
+
+  const { classes, cx } = useStyles();
+
+  const DEFAULT_LABEL = "Aa";
 
   const THEME_FONTS = [
     Fonts.KumbhSans,
@@ -18,25 +20,24 @@ export const FontSettings = (props: any) => {
   ];
 
 
-  const handleFontChange = (event: any) => {
-    switchFont(event.target.value);
+  const handleFontChange: ToggleButtonProps['onChange'] = ( _, value ) => {
+    switchFont(value);
   };
 
   return (
     <ToggleButtonGroup
-      value={themeFont}
+      aria-label="theme fonts"
       exclusive
-      color="secondary"
       onChange={handleFontChange}
-      aria-label="font"
+      value={themeFont}
       classes={{
         root: classes.buttonGroup,
-        firstButton: classes.firstButton,
-        middleButton: classes.middleButton,
-        lastButton: classes.lastButton,
+        firstButton: cx(classes.firstButton, classes.button),
+        middleButton: cx(classes.middleButton, classes.button),
+        lastButton: cx(classes.lastButton, classes.button),
       }}
     >
-      {THEME_FONTS.map((font: any, index: number) => {
+      {THEME_FONTS.map(( font, index ) => {
         return (
           <ToggleButton
             key={index}
@@ -47,11 +48,10 @@ export const FontSettings = (props: any) => {
               selected: classes.selectedButton,
             }}
           >
-            {defaultLabel}
+            {DEFAULT_LABEL}
           </ToggleButton>
         )
-      }
-      )}
+      })}
     </ToggleButtonGroup>
   );
 }

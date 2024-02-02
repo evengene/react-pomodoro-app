@@ -1,76 +1,45 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const useStyles = makeStyles()({
+export const useStyles = makeStyles()((theme) =>({
   buttonGroup: {
-    borderRadius: '50px',
-    gap: '16px',
+    gap: 16,
   },
   root: {
-    borderRadius: '50%',
-    border: 'none',
-    background: '#EFF1FA',
-    color: '#1E213F',
-    borderTopRightRadius: '50%',
-    borderBottomRightRadius: '50%',
-    width: '40px',
-    height: '40px',
+    height: 40,
+    textTransform: 'capitalize',
+    width: 40,
   },
   selectedButton: {
-    background: '#161932',
-    color: '#FFF',
+    background: theme.palette.byName.darkBlue,
+    border: theme.palette.byName.darkBlue,
     borderRadius: '50% !important',
-    border: '#161932',
+    color: theme.palette.common.white,
+  },
+  button: {
+    background: theme.palette.byName.lightGrey,
+    border: theme.palette.byName.lightGrey,
+    borderRadius: '50% !important',
+    color: theme.palette.byName.deepBlue,
+    transition: 'all 0.3s ease',
+    '&.Mui-selected': {
+      background: theme.palette.byName.darkBlue,
+      color: theme.palette.common.white,
+      '&:hover': {
+        background: theme.palette.byName.darkBlue,
+        color: theme.palette.common.white,
+      },
+    }
   },
   firstButton: {
-    borderRadius: '50% !important',
-    background: '#EFF1FA',
-    color: '#1E213F',
-    border: '#EFF1FA',
     fontFamily: 'Kumbh Sans, sans-serif',
-    '&.Mui-selected': {
-      background: '#161932',
-      color: '#FFF',
-      '&:hover': {
-        background: '#161932',
-        color: '#FFF'
-      },
-    }
+    fontWeight: 700,
   },
   middleButton: {
-    borderRadius: '50% !important',
-    width: '40px',
-    height: '40px',
-    background: '#EFF1FA',
-    color: '#1E213F',
-    border: '#EFF1FA',
-    transition: 'all 0.3s ease',
     fontFamily: 'Roboto Slab, serif',
-    '&.Mui-selected': {
-      background: '#161932',
-      color: '#FFF',
-      '&:hover': {
-        background: '#161932',
-        color: '#FFF'
-      },
-    }
+    fontWeight: 400,
   },
   lastButton: {
-    borderRadius: '50% !important',
-    width: '40px',
-    height: '40px',
-    background: '#EFF1FA',
-    color: '#1E213F',
-    border: '#EFF1FA',
-    transition: 'all 0.3s ease',
     fontFamily: 'Space Mono, monospace',
-
-    '&.Mui-selected': {
-      background: '#161932',
-      color: '#FFF',
-      '&:hover': {
-        background: '#161932',
-        color: '#FFF'
-      },
-    }
+    fontWeight: 700,
   }
-});
+}));

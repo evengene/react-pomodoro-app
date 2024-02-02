@@ -1,66 +1,56 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const useStyles = makeStyles()({
+export const useStyles = makeStyles()(theme => ({
   checkIcon: {
-    color: '#1E213F',
+    color: theme.palette.byName.deepBlue,
     fontSize: '1.5rem',
   },
   buttonGroup: {
     borderRadius: '50px',
-    gap: '16px',
+    gap: 16,
   },
   root: {
-    borderRadius: '50%',
     border: 'none',
-    borderTopRightRadius: '50%',
-    borderBottomRightRadius: '50%',
-    width: '40px',
-    height: '40px',
+    height: 40,
+    width: 40,
+    borderRadius: '50% !important',
+    transition: 'all 0.3s ease',
   },
   firstButton: {
-    borderRadius: '50% !important',
-    background: '#F87070',
-    // color: '#1E213F',
+    background: theme.palette.byName.carrot,
     '&:hover': {
-      background: '#F87070',
+      background: theme.palette.byName.carrot,
     },
     '&.Mui-selected': {
-      background: '#F87070',
+      background: theme.palette.byName.carrot,
       '&:hover': {
-        background: '#F87070',
+        background: theme.palette.byName.carrot,
       },
     }
   },
   middleButton: {
-    borderRadius: '50% !important',
-    width: '40px',
-    height: '40px',
-    background: '#70F3F8',
-    transition: 'all 0.3s ease',
+    background: theme.palette.byName.turquoise,
     '&:hover': {
-      background: '#70F3F8',
+      background: theme.palette.byName.turquoise,
     },
     '&.Mui-selected': {
-      background: '#70F3F8',
+      background: theme.palette.byName.turquoise,
       '&:hover': {
-        background: '#70F3F8',
+        background: theme.palette.byName.turquoise,
       },
     }
   },
   lastButton: {
-    borderRadius: '50% !important',
-    width: '40px',
-    height: '40px',
-    background: '#D881F8',
-    transition: 'all 0.3s ease',
+    background: theme.palette.byName.neonPink,
     '&:hover': {
-      background: '#D881F8',
+      background: theme.palette.byName.neonPink,
     },
     '&.Mui-selected': {
-      background: '#D881F8',
+      background: theme.palette.byName.neonPink,
       '&:hover': {
-        background: '#D881F8',
+        background: theme.palette.byName.neonPink,
       },
     }
   }
-});
+}));
+

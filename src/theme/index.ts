@@ -3,6 +3,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const byName = {
   bluishGrey: '#D7E0FF',
+  lightGrey: '#EFF1FA',
   carrot: '#F87070',
   turquoise: '#70F3F8',
   neonPink: '#D881F8',
@@ -13,12 +14,6 @@ export const byName = {
 export const theme = createTheme({
   palette: {
     byName,
-    primary: {
-      main: '#D7E0FF',
-      dark: '#D7E0FF',
-      contrastText: '#D7E0FF',
-    },
-
   },
 });
 

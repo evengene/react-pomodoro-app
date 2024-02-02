@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
-import './index.css';
 import App from './App';
-import { TimerProvider } from './context/TimerContext';
-import { CustomThemeProvider } from './context/ThemeContext';
+import { CustomThemeProvider, TimerProvider } from './context';
 import { theme } from './theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

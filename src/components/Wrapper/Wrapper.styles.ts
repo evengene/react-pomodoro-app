@@ -6,8 +6,8 @@ export const useStyles = makeStyles()((theme) => ({
       background: theme.palette.byName.deepBlue,
       display: 'flex',
       flexDirection: 'column',
-      gap: theme.spacing(5),
-      justifyContent: 'center',
+      gap: theme.spacing(2),
+      justifyContent: 'flex-start',
       minHeight: '100vh',
       padding: 0,
       [theme.breakpoints.down('sm')]: {
@@ -19,10 +19,15 @@ export const useStyles = makeStyles()((theme) => ({
       fontFamily: 'Kumbh Sans, sans-serif',
       fontSize: 32,
       fontWeight: 700,
-      marginBottom: 1.75,
+      marginBottom: 21,
+      marginTop: 48,
+      position: 'relative',
       textAlign: 'center',
+      top: -10,
       [theme.breakpoints.down('sm')]: {
         fontSize: 24,
+        marginBottom: 15,
+        marginTop: 32,
       }
     },
     settingsIcon: {

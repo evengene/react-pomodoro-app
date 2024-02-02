@@ -1,42 +1,65 @@
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 
-export const TimerContext = createContext<TimerContext>({} as TimerContext);
+import type { TimerContextType } from './TimerContext.types';
+import { ModeLabels } from './TimerContext.enumerations';
+import { FIVE_MINUTES, TEN_MINUTES, TWENTY_FIVE_MINUTES } from "./TimerContext.constants";
 
-export enum ModeTimes {
-  Pomodoro = 25 * 60,
-  ShortBreak = 5 * 60,
-  LongBreak = 10 * 60
-}
-
-export enum ModeLabels {
-  Pomodoro = 'pomodoro',
-  ShortBreak = 'shortBreak',
-  LongBreak = 'longBreak'
-}
-
-export type TimerContext = {
-  mode: ModeLabels;
-  setMode: (mode: ModeLabels) => void;
-  timeLeft: number;
-  setTimeLeft: (time: number) => void;
-  totalTime: number;
-  setTotalTime: (time: number) => void;
-  isRunning: boolean;
-  setIsRunning: Dispatch<SetStateAction<boolean>>;
-  settingsOpen: boolean;
-  setSettingsOpen: Dispatch<SetStateAction<boolean>>;
-}
+export const TimerContext = createContext<TimerContextType>({} as TimerContextType);
 
 export const TimerProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [mode, setMode] = useState(ModeLabels.Pomodoro);
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
-  const [totalTime, setTotalTime] = useState(25 * 60);
-  const [isRunning, setIsRunning] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [ mode, setMode ] = useState(ModeLabels.Pomodoro);
+  const [ modeDurationInSeconds, setModeDurationInSeconds ] = useState({
+    [ModeLabels.Pomodoro]: TWENTY_FIVE_MINUTES,
+    [ModeLabels.ShortBreak]: FIVE_MINUTES,
+    [ModeLabels.LongBreak]: TEN_MINUTES,
+  });
+  const [ initialTimerValue, setInitialTimerValue ] = useState(modeDurationInSeconds[mode]);
+  const [ remainingTimerValue, setRemainingTimerValue ] = useState(modeDurationInSeconds[mode]);
+  const [ isRunning, setIsRunning ] = useState(false);
+  const [ settingsOpen, setSettingsOpen ] = useState(false);
+
+  const minutesLeft = Math.floor(initialTimerValue / 60);
+  const secondsLeft = initialTimerValue % 60;
+  const secondsLabel = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
+  const formattedTimeLabel = `${minutesLeft}:${secondsLabel}`;
+
+  const circleProgress = useMemo(() => (initialTimerValue / remainingTimerValue) * 100, [ initialTimerValue, remainingTimerValue ]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (isRunning && initialTimerValue > 0) {
+      timer = setInterval(() => {
+        setInitialTimerValue(initialTimerValue - 1);
+      }, 1000);
+    } else if (!isRunning && timer) {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [ initialTimerValue, setInitialTimerValue, isRunning ]);
+
+  // listen if modeDurationInSeconds changes and update initialTimerValue and remainingTimerValue
+  useEffect(() => {
+    setInitialTimerValue(modeDurationInSeconds[mode]);
+    setRemainingTimerValue(modeDurationInSeconds[mode]);
+  }, [ mode, modeDurationInSeconds ]);
 
   return (
-    <TimerContext.Provider value={{ mode, setMode, timeLeft, setTimeLeft, totalTime, setTotalTime, isRunning, setIsRunning, settingsOpen, setSettingsOpen }}>
+    <TimerContext.Provider value={{
+      circleProgress,
+      formattedTimeLabel,
+      initialTimerValue,
+      isRunning,
+      mode,
+      setInitialTimerValue,
+      setIsRunning,
+      setMode,
+      setRemainingTimerValue,
+      setSettingsOpen,
+      settingsOpen,
+      modeDurationInSeconds,
+      setModeDurationInSeconds,
+    }}>
       {children}
     </TimerContext.Provider>
   );
