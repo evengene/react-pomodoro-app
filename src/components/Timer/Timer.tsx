@@ -24,6 +24,7 @@ export const Timer = () => {
     <Box className={classes.largeCircle}>
       <Box className={classes.mediumCircle}>
         <CircularProgress
+          aria-label="Loading progress"
           className={classes.circularProgress}
           size={countDownSize}
           thickness={2}

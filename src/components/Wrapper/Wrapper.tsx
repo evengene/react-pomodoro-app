@@ -22,12 +22,16 @@ export const Wrapper = ({ children }: PropsWithChildren<{}>) => {
 
   return (
     <Box className={classes.wrapper}>
-      <Typography component="h1" className={classes.title}>
-        {COPY.title}
-      </Typography>
+      <header>
+        <Typography component="h1" className={classes.title}>
+          {COPY.title}
+        </Typography>
+      </header>
+      <main>
         {children}
+      </main>
       <IconButton onClick={onSettingsToggle}>
-        <Settings className={classes.settingsIcon}/>
+        <Settings className={classes.settingsIcon} />
       </IconButton>
     </Box>
   )

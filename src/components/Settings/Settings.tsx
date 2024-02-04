@@ -148,6 +148,7 @@ export const Settings = () => {
         </DialogContent>
 
         <Button
+          aria-label={COPY.apply}
           className={classes.applyButton}
           variant="contained"
           disableRipple
