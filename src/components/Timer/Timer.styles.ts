@@ -81,6 +81,7 @@ export const useStyles = makeStyles<{ themeFont: string, themeColor: string }>()
     },
     circularProgress: {
       color: themeColor,
+      cursor: 'pointer',
       position: 'absolute',
       zIndex: 1,
     },

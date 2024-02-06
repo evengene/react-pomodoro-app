@@ -11,14 +11,19 @@ export const Timer = () => {
 
   const { classes } = useStyles({ themeFont, themeColor });
 
-  const { formattedTimeLabel, circleProgress, isRunning, setIsRunning } = useContext(TimerContext);
+  const { resetTimer, formattedTimeLabel, progressValuePercentage, isRunning, setIsRunning, isFinished } = useContext(TimerContext);
 
   const onStartButtonClick = useCallback(() => {
-    setIsRunning(!isRunning);
-  }, [ isRunning, setIsRunning ]);
+    if (isFinished) {
+      resetTimer();
+    } else {
+      setIsRunning(!isRunning);
+    }
+  }, [ isRunning, setIsRunning, resetTimer, isFinished ]);
 
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const countDownSize = useMemo(() => isXSmall ? 250 : 340, [ isXSmall ]);
+  const buttonLabel = isFinished ? 'Reset' : isRunning ? 'Pause' : 'Start';
 
   return (
     <Box className={classes.largeCircle}>
@@ -27,8 +32,9 @@ export const Timer = () => {
           aria-label="Loading progress"
           className={classes.circularProgress}
           size={countDownSize}
+          onClick={onStartButtonClick}
           thickness={2}
-          value={circleProgress || 0}
+          value={progressValuePercentage || 0}
           variant="determinate"
         />
 
@@ -45,7 +51,7 @@ export const Timer = () => {
           onClick={onStartButtonClick}
           variant="button"
         >
-          {isRunning ? 'Pause' : 'Start'}
+          {buttonLabel}
         </Typography>
       </Box>
     </Box>

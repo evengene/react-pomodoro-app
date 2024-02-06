@@ -1,64 +1,53 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 
 import type { TimerContextType } from './TimerContext.types';
-import { ModeLabels } from './TimerContext.enumerations';
-import { FIVE_MINUTES, TEN_MINUTES, TWENTY_FIVE_MINUTES } from "./TimerContext.constants";
+import { useTimer } from '../../hooks/useTimer';
+import { useDocumentTitle } from '../../hooks/useDocumenrTitle';
 
 export const TimerContext = createContext<TimerContextType>({} as TimerContextType);
 
 export const TimerProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [ mode, setMode ] = useState(ModeLabels.Pomodoro);
-  const [ modeDurationInSeconds, setModeDurationInSeconds ] = useState({
-    [ModeLabels.Pomodoro]: TWENTY_FIVE_MINUTES,
-    [ModeLabels.ShortBreak]: FIVE_MINUTES,
-    [ModeLabels.LongBreak]: TEN_MINUTES,
-  });
-  const [ initialTimerValue, setInitialTimerValue ] = useState(modeDurationInSeconds[mode]);
-  const [ remainingTimerValue, setRemainingTimerValue ] = useState(modeDurationInSeconds[mode]);
-  const [ isRunning, setIsRunning ] = useState(false);
-  const [ settingsOpen, setSettingsOpen ] = useState(false);
+  const {
+    mode,
+    modeDurationInSeconds,
+    ongoingTimeInSeconds,
+    isRunning,
+    isFinished,
+    setMode,
+    setIsRunning,
+    resetTimer,
+    setSettingsOpen,
+    settingsOpen,
+    setModeDuration,
+  } = useTimer();
 
-  const minutesLeft = Math.floor(initialTimerValue / 60);
-  const secondsLeft = initialTimerValue % 60;
+  const minutesLeft = Math.floor(ongoingTimeInSeconds / 60);
+  const secondsLeft = ongoingTimeInSeconds % 60;
   const secondsLabel = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
   const formattedTimeLabel = `${minutesLeft}:${secondsLabel}`;
 
-  const circleProgress = useMemo(() => (initialTimerValue / remainingTimerValue) * 100, [ initialTimerValue, remainingTimerValue ]);
+  const progressValuePercentage = useMemo(() => (ongoingTimeInSeconds / modeDurationInSeconds[mode]) * 100, [ ongoingTimeInSeconds, modeDurationInSeconds, mode ]);
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout | undefined;
-    if (isRunning && initialTimerValue > 0) {
-      timer = setInterval(() => {
-        setInitialTimerValue(initialTimerValue - 1);
-      }, 1000);
-    } else if (!isRunning && timer) {
-      clearInterval(timer);
-    }
-    return () => clearInterval(timer);
-  }, [ initialTimerValue, setInitialTimerValue, isRunning ]);
-
-  // listen if modeDurationInSeconds changes and update initialTimerValue and remainingTimerValue
-  useEffect(() => {
-    setInitialTimerValue(modeDurationInSeconds[mode]);
-    setRemainingTimerValue(modeDurationInSeconds[mode]);
-  }, [ mode, modeDurationInSeconds ]);
+  useDocumentTitle(isRunning ? `(${formattedTimeLabel})Timer` : isFinished ? 'Finished!' : 'Timer');
 
   return (
     <TimerContext.Provider value={{
-      circleProgress,
+      progressValuePercentage,
       formattedTimeLabel,
-      initialTimerValue,
+      ongoingTimeInSeconds,
       isRunning,
       mode,
-      setInitialTimerValue,
-      setIsRunning,
-      setMode,
-      setRemainingTimerValue,
       setSettingsOpen,
       settingsOpen,
+      setInitialTimerValue: resetTimer,
+      setIsRunning,
+      setMode,
+      setRemainingTimerValue: resetTimer,
       modeDurationInSeconds,
-      setModeDurationInSeconds,
+      isFinished,
+      resetTimer,
+      setModeDuration,
     }}>
       {children}
     </TimerContext.Provider>

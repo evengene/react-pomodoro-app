@@ -1,18 +1,20 @@
-import { Dispatch, SetStateAction } from 'react';
-import type { ModeLabels } from './TimerContext.enumerations';
+import type { Dispatch, SetStateAction } from 'react';
+import { ModeLabels } from './TimerContext.enumerations';
 
 export type TimerContextType = {
-  circleProgress: number | null;
+  progressValuePercentage: number | null;
   formattedTimeLabel: string;
-  initialTimerValue: number;
+  ongoingTimeInSeconds: number;
   isRunning: boolean;
   mode: ModeLabels;
   modeDurationInSeconds: { [key in ModeLabels]: number };
   setInitialTimerValue: (time: number) => void;
-  setIsRunning: Dispatch<SetStateAction<boolean>>;
+  setIsRunning: (isRunning: boolean) => void;
   setMode: (mode: ModeLabels) => void;
-  setModeDurationInSeconds: Dispatch<SetStateAction<{ [key in ModeLabels]: number }>>;
   setRemainingTimerValue: (time: number) => void;
   setSettingsOpen: Dispatch<SetStateAction<boolean>>;
   settingsOpen: boolean;
+  isFinished: boolean;
+  resetTimer: () => void;
+  setModeDuration: (modeLabel: ModeLabels, value: number) => void;
 }

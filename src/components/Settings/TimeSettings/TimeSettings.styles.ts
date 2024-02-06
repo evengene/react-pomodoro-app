@@ -36,13 +36,6 @@ export const useStyles = makeStyles()((theme) => ({
       fontSize: 14,
       fontWeight: 700,
       padding: theme.spacing(1.5, 2),
-      '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
-        margin: 0,
-        '-moz-appearance': 'textfield',
-      },
-      '&[type=number]': {
-        '-moz-appearance': 'textfield',
-      },
     },
     inputInner: {
       backgroundColor: theme.palette.byName.lightGrey,

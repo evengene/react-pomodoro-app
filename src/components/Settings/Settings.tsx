@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 
-import {ColorSettings} from './ColorSettings';
-import {FontSettings} from './FontSettings';
-import {ModeLabels, ThemeContext, TimerContext} from '../../context';
-import {TimeSettings} from './TimeSettings';
-import {useStyles} from './Settings.styles';
+import { ColorSettings } from './ColorSettings';
+import { FontSettings } from './FontSettings';
+import { ModeLabels, ThemeContext, TimerContext } from '../../context';
+import { TimeSettings } from './TimeSettings';
+import { useStyles } from './Settings.styles';
 
 const COPY = {
   settings: 'Settings',
@@ -31,7 +31,7 @@ const COPY = {
 export const Settings = () => {
   const {
     modeDurationInSeconds,
-    setModeDurationInSeconds,
+    setModeDuration,
     settingsOpen,
     setSettingsOpen
   } = useContext(TimerContext);
@@ -44,12 +44,7 @@ export const Settings = () => {
   };
 
   const onInputChange = (modeLabel: ModeLabels) => (event: ChangeEvent<HTMLInputElement>) => {
-    const {value} = event.target;
-    debugger;
-    setModeDurationInSeconds({
-      ...modeDurationInSeconds,
-      [modeLabel]: Number(value) * 60,
-    });
+    setModeDuration(modeLabel, parseInt(event.target.value) * 60);
   }
 
   const onSettingsClose: ButtonProps['onClick'] = () => {
