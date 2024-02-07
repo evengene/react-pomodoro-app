@@ -23,7 +23,7 @@ export const ColorSettings = () => {
   ];
 
   const checkIcon =
-    <IconButton className={classes.checkIcon}>
+    <IconButton className={classes.checkIcon} type="button">
       <Check />
     </IconButton>
 

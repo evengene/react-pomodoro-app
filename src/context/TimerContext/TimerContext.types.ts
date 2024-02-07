@@ -9,7 +9,7 @@ export type TimerContextType = {
   mode: ModeLabels;
   modeDurationInSeconds: { [key in ModeLabels]: number };
   setInitialTimerValue: (time: number) => void;
-  setIsRunning: (isRunning: boolean) => void;
+  setIsRunning: any;
   setMode: (mode: ModeLabels) => void;
   setRemainingTimerValue: (time: number) => void;
   setSettingsOpen: Dispatch<SetStateAction<boolean>>;
@@ -17,4 +17,6 @@ export type TimerContextType = {
   isFinished: boolean;
   resetTimer: () => void;
   setModeDuration: (modeLabel: ModeLabels, value: number) => void;
+  handleStartProgress: () => void;
+  handleStopProgress: () => void;
 }

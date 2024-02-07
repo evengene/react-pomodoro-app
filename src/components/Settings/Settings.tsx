@@ -1,4 +1,4 @@
-import {ChangeEvent, useContext} from 'react';
+import { useContext } from 'react';
 import {
   Button, ButtonProps,
   Dialog,
@@ -9,13 +9,14 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import {Close} from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 
 import { ColorSettings } from './ColorSettings';
 import { FontSettings } from './FontSettings';
 import { ModeLabels, ThemeContext, TimerContext } from '../../context';
-import { TimeSettings } from './TimeSettings';
+import { TimeSettingsInput } from './TimeSettingsInput';
 import { useStyles } from './Settings.styles';
+import './Settings.css';
 
 const COPY = {
   settings: 'Settings',
@@ -43,8 +44,8 @@ export const Settings = () => {
     setSettingsOpen(false);
   };
 
-  const onInputChange = (modeLabel: ModeLabels) => (event: ChangeEvent<HTMLInputElement>) => {
-    setModeDuration(modeLabel, parseInt(event.target.value) * 60);
+  const updateInputChange = (modeLabel: ModeLabels) => (inputValue: number) => {
+    setModeDuration(modeLabel, inputValue * 60);
   }
 
   const onSettingsClose: ButtonProps['onClick'] = () => {
@@ -86,27 +87,27 @@ export const Settings = () => {
             className={classes.gridContainer}
           >
             <Grid item sm={4} xs={12}>
-              <TimeSettings
+              <TimeSettingsInput
                 title={COPY.pomodoro}
                 defaultValue={25}
                 value={modeDurationInSeconds[ModeLabels.Pomodoro] / 60}
-                onChange={onInputChange(ModeLabels.Pomodoro)}
+                updateInputChange={updateInputChange(ModeLabels.Pomodoro)}
               />
             </Grid>
             <Grid item sm={4} xs={12}>
-              <TimeSettings
+              <TimeSettingsInput
                 title={COPY.shortBreak}
                 defaultValue={5}
                 value={modeDurationInSeconds[ModeLabels.ShortBreak] / 60}
-                onChange={onInputChange(ModeLabels.ShortBreak)}
+                updateInputChange={updateInputChange(ModeLabels.ShortBreak)}
               />
             </Grid>
             <Grid item sm={4} xs={12}>
-              <TimeSettings
+              <TimeSettingsInput
                 title={COPY.longBreak}
                 defaultValue={15}
                 value={modeDurationInSeconds[ModeLabels.LongBreak] / 60}
-                onChange={onInputChange(ModeLabels.LongBreak)}
+                updateInputChange={updateInputChange(ModeLabels.LongBreak)}
               />
             </Grid>
           </Grid>

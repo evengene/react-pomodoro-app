@@ -8,6 +8,11 @@ export const useStyles = makeStyles()((theme) =>({
     height: 40,
     textTransform: 'capitalize',
     width: 40,
+    zIndex: 2,
+    position: 'relative',
+    '&:hover': {
+      boxShadow: `0 0 0 4px white, 0 0 0 6px ${theme.palette.byName.lightGrey}`,
+    },
   },
   selectedButton: {
     background: theme.palette.byName.darkBlue,
@@ -20,7 +25,7 @@ export const useStyles = makeStyles()((theme) =>({
     border: theme.palette.byName.lightGrey,
     borderRadius: '50% !important',
     color: theme.palette.byName.deepBlue,
-    transition: 'all 0.3s ease',
+    transition: 'all 0.3s ease-in-out',
     '&.Mui-selected': {
       background: theme.palette.byName.darkBlue,
       color: theme.palette.common.white,

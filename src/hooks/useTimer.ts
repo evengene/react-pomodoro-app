@@ -40,8 +40,6 @@ const initialState: TimerState = {
 };
 
 function timerReducer(state: TimerState, action: TimerAction): TimerState {
-  debugger;
-
   switch (action.type) {
     case 'SET_MODE':
       return {
@@ -51,7 +49,10 @@ function timerReducer(state: TimerState, action: TimerAction): TimerState {
         remainingTimerValue: state.modeDurationInSeconds[action.payload],
       };
     case 'SET_IS_RUNNING':
-      return { ...state, isRunning: action.payload };
+      return {
+        ...state,
+        isRunning: !state.isRunning,
+      };
     case 'DECREMENT_TIMER':
       return { ...state, ongoingTimeInSeconds: state.ongoingTimeInSeconds - 1 };
     case 'SETTINGS_OPEN':

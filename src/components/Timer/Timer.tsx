@@ -11,15 +11,25 @@ export const Timer = () => {
 
   const { classes } = useStyles({ themeFont, themeColor });
 
-  const { resetTimer, formattedTimeLabel, progressValuePercentage, isRunning, setIsRunning, isFinished } = useContext(TimerContext);
+  const {
+    resetTimer,
+    formattedTimeLabel,
+    progressValuePercentage,
+    isRunning,
+    isFinished,
+    handleStartProgress,
+    handleStopProgress
+  } = useContext(TimerContext);
 
   const onStartButtonClick = useCallback(() => {
+    debugger;
     if (isFinished) {
       resetTimer();
+      handleStopProgress();
     } else {
-      setIsRunning(!isRunning);
+      handleStartProgress();
     }
-  }, [ isRunning, setIsRunning, resetTimer, isFinished ]);
+  }, [isFinished, resetTimer, handleStopProgress, handleStartProgress]);
 
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const countDownSize = useMemo(() => isXSmall ? 250 : 340, [ isXSmall ]);
