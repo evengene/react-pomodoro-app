@@ -3,9 +3,7 @@ import type { PropsWithChildren } from 'react';
 
 import { Colors, Fonts } from './ThemeContext.enumerations';
 
-export const ThemeContext = createContext<any>(
-  {},
-);
+export const ThemeContext = createContext<any>({});
 
 export const CustomThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const [themeColor, setThemeColor] = useState(Colors.Carrot);
