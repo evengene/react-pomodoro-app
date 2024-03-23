@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 
 import type { TimerContextType } from './TimerContext.types';
 import { useTimer } from '../../hooks/useTimer';
-import { useDocumentTitle } from '../../hooks/useDocumenrTitle';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 export const TimerContext = createContext<TimerContextType>({} as TimerContextType);
 

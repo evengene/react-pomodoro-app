@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction } from 'react';
 import { ModeLabels } from './TimerContext.enumerations';
+import type { Dispatch, SetStateAction } from 'react';
 
 export type TimerContextType = {
   progressValuePercentage: number | null;
