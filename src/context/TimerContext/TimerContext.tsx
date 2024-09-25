@@ -70,7 +70,7 @@ export const TimerProvider = ({ children }: PropsWithChildren<{}>) => {
     }
     console.log('TimerContext', context);
     return context;
-  }, [ progressValuePercentage, formattedTimeLabel, ongoingTimeInSeconds, isRunning, mode, setSettingsOpen, settingsOpen, resetTimer, setIsRunning, setMode, modeDurationInSeconds, isFinished, setModeDuration, handleStartProgress, handleStopProgress ]);
+  }, [progressValuePercentage, formattedTimeLabel, ongoingTimeInSeconds, isRunning, mode, setSettingsOpen, settingsOpen, resetTimer, setIsRunning, setMode, modeDurationInSeconds, isFinished, setModeDuration, handleStartProgress, handleStopProgress]);
 
   return (
     <TimerContext.Provider value={contextValue}>

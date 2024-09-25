@@ -12,7 +12,6 @@ export const useStyles = makeStyles<{ themeFont: string, themeColor: string }>()
       width: 'auto',
       flexShrink: 0,
       padding: theme.spacing(1),
-      marginBottom: 28,
       [theme.breakpoints.down('sm')]: {
         width: 327,
       }

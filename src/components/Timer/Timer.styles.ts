@@ -27,7 +27,6 @@ export const useStyles = makeStyles<{ themeFont: string, themeColor: string }>()
       height: 410,
       justifyContent: 'center',
       width: 410,
-      marginBottom: 36,
       [theme.breakpoints.down('sm')]: {
         width: 300,
         height: 300,

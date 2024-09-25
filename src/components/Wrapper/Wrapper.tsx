@@ -27,10 +27,10 @@ export const Wrapper = ({ children }: PropsWithChildren<{}>) => {
           {COPY.title}
         </Typography>
       </header>
-      <main>
+      <main className={classes.timer}>
         {children}
       </main>
-      <IconButton onClick={onSettingsToggle}>
+      <IconButton onClick={onSettingsToggle} className={classes.settingsButton}>
         <Settings className={classes.settingsIcon} />
       </IconButton>
     </Box>

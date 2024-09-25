@@ -7,7 +7,7 @@ export const useStyles = makeStyles()((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       gap: theme.spacing(2),
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
       minHeight: '100vh',
       padding: 0,
       [theme.breakpoints.down('sm')]: {
@@ -30,6 +30,16 @@ export const useStyles = makeStyles()((theme) => ({
         marginTop: 32,
       }
     },
+    timer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(5.6),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    settingsButton: {
+      marginBottom: 56,
+    },
     settingsIcon: {
       color: theme.palette.byName.bluishGrey,
       height: 34,
@@ -39,6 +49,6 @@ export const useStyles = makeStyles()((theme) => ({
       '&:hover': {
         opacity: 1,
       },
-    }
+    },
   }),
 );
